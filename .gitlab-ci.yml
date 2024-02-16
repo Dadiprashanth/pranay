@@ -1,0 +1,17 @@
+stages:
+  - build_stage
+  - deploy_stage
+build:
+  stage: build_stage
+  image: node
+  script:
+     - apt install
+  artifacts:
+     paths:
+       - node_modules
+       - package-lock.json
+deploy:
+  stage: deploy_stage
+  image: node
+  script:
+     - node app.js > /dev/null 2>&1 &
