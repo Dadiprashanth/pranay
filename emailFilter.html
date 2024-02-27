@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <title>Document</title>
+</head>
+
+
+<body class="content">
+    <div>
+        <label for="name">enter name:</label>
+        <input id="name" placeholder="enter fullName">
+    </div>
+    <div>
+        <label for="email">enter email:</label>
+        <input id="email" placeholder="enter email">
+    </div>
+    <div>
+        <label for="mobile">enter mobile:</label>
+        <input id="mobile" placeholder="enter mobile">
+    </div>
+    <div>
+        <button id="register" onclick="register()">Register</button>
+        <button id="display" onclick="display()">display</button>
+    </div>
+    <h4 id="demo1"></h4>
+    <script>
+        let arr = []
+        if (JSON.parse(localStorage.getItem("arr"))) {
+            arr = JSON.parse(localStorage.getItem("arr"))
+        }
+
+        function register() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("mobile").value;
+            localStorage.setItem('arr', JSON.stringify(arr));
+            let counter = 0;
+            if (name !== "" && email !== "", phone !== "") {
+                for (i = 0; i < arr.length; i++) {
+                    if (email === arr[i].email) {
+                        counter = counter + 1
+                        window.alert("this email already exists");
+                        break;
+                    }
+                }
+                if (counter == 0) {
+                    let tempObj = {
+                        name: name,
+                        email: email,
+                        phone: phone
+                    }
+                    arr.push(tempObj);
+                    localStorage.setItem('arr', JSON.stringify(arr));
+                    window.alert("success");
+                }
+                document.getElementById("name").value = "";
+                document.getElementById("email").value = '';
+                document.getElementById("mobile").value = ""
+            }
+            else {
+                window.alert("enter the all values");
+
+            }
+        }
+        function display() {
+            document.getElementById("demo1").innerHTML =
+                localStorage.getItem('arr');
+        }
+    </script>
+</body>
+
+
+</html>

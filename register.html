@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body>
+    <input type="text" id="f_name" />
+    <p id="f_nameR"></p>
+    <input type="number" id="p_word" />
+    <p id="p_wordR"></p>
+    <button onclick="submit()">Submit</button>
+    <table>
+        <thead>
+            <tr>
+                <th>name</th>
+                <th>number</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody id="mytable">
+
+        </tbody>
+    </table>
+
+</body>
+<script>
+    let arr_1 = []
+    if (JSON.parse(localStorage.getItem("arr_1"))) {
+        arr_1 = JSON.parse(localStorage.getItem("arr_1"))
+    }
+    console.log(arr_1, "arr")
+
+    function submit() {
+        let f_name = document.getElementById("f_name").value;
+        let p_word = document.getElementById("p_word").value;
+        let f_nameR = document.getElementById("f_nameR")
+        let p_wordR = document.getElementById("p_wordR")
+
+        if (f_name == "") {
+            f_nameR.textContent = "Required"
+            f_nameR.style.color = "red"
+            return true;
+        }
+        else {
+            f_nameR.textContent = ""
+        }
+        if (p_word == "") {
+            p_wordR.textContent = "Required"
+            p_wordR.style.color = "red"
+            return false;
+        }
+        else {
+            p_wordR.textContent = ""
+        }
+        let obj_1 = {
+            id: new Date().getTime().toString(),
+            firstName: f_name,
+            password: p_word
+        }
+        console.log(new Date().getTime().toString());
+        arr_1.push(obj_1);
+        localStorage.setItem('arr_1', JSON.stringify(arr_1));
+        location.reload()
+    }
+
+    arr_1.map((each) => {
+        let tr1 = document.createElement("tr")
+        document.getElementById("mytable").appendChild(tr1)
+        let td1 = document.createElement("td")
+        td1.textContent = each.firstName;
+        tr1.appendChild(td1);
+        let td2 = document.createElement("td")
+        td2.textContent = each.password;
+        tr1.appendChild(td2);
+        let td3 = document.createElement("td")
+        let btn = document.createElement("button")
+        btn.setAttribute("id", `${each.id}`)
+        btn.setAttribute("onclick", "edit(id)")
+        btn.textContent = "edit"
+        td3.appendChild(btn)
+        let btn1 = document.createElement("button")
+        btn1.textContent = "Del"
+        td3.appendChild(btn1)
+        tr1.appendChild(td3)
+
+    })
+    function edit(e) {
+        console.log(e)
+        for (let i of arr_1) {
+            if (i.id === e) {
+                document.getElementById("f_name").value = i.firstName
+                document.getElementById("p_word").value = i.password
+            }
+        }
+
+    }
+
+
+
+
+
+
+</script>
+
+</html>

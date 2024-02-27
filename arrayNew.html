@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <label for="name">enter name:</label>
+        <input id="name" placeholder="enter fullName">
+    </div>
+    <div>
+        <label for="email">enter email:</label>
+        <input id="email" placeholder="enter email">
+    </div>
+    <div>
+        <label for="mobile">enter mobile:</label>
+        <input id="mobile" placeholder="enter mobile">
+    </div>
+    <div>
+        <button id="register" onclick="register()">Register</button>
+        <button id="display" onclick="display()">display</button>
+    </div>
+    <h4 id="demo1"></h4>
+    <h4 id="demo2"></h4>
+    <h4 id="demo3"></h4>
+</body>cd
+
+    <script>
+        function register() {
+            const name = document.getElementById("name").value;
+            const email = document.getElementById("email").value;
+            const phone = document.getElementById("mobile").value;
+            localStorage.setItem('name', name);
+            localStorage.setItem('email', email);
+            localStorage.setItem('phone', phone);
+        }
+        function display() {
+            let name = localStorage.getItem('name');
+            let email = localStorage.getItem('email');
+            let phone = localStorage.getItem('phone');
+            document.getElementById("demo1").innerHTML = name;
+            document.getElementById("demo2").innerHTML = email;
+            document.getElementById("demo3").innerHTML = phone;
+        }
+        </script>
+ 
+</html>

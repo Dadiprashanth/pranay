@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <h1 id="head_1">JavaScript Functions</h1>
+    <h2 id="head_2">setInterval() with a Callback</h2>
+
+    <p>Wait 3 seconds (3000 milliseconds) for this page to change.</p>
+    <button onclick="submit()">click</button>
+
+    <script>
+
+        function submit() {
+            document.getElementById("head_1").innerHTML = 'hello'
+            document.getElementById("head_2").style.color = "green"
+        }
+
+        let arr900 = []
+        let obj900 = { name: "sai", gmail: "r@gmail.com" }
+        var gVal = obj900.gmail
+        console.log(gVal)
+        let y = arr900.filter(e => e.gmail === gVal);
+        console.log(y)
+        if (y.length > 0) {
+            alert("nn")
+        }
+        else {
+            arr900.push({...obj900,qty:1})
+            console.log(arr900);
+
+
+        }
+
+        //array some funtionality--------- it  return boolean value
+        let arra = [2, 5, 8, 1, 4];
+        let b_ = arra.sort(e => e > 1)
+        console.log(b_); //o/p;true
+
+        //array methods
+        //pop(); remove last element of array
+        let emplist = ["raju", "sai", "prashanth", "Gopal", "Nikhil", "Vikram"]
+        emplist.pop();
+        console.log(emplist);
+
+        //push(): push the element in last index of array
+        emplist.push("raju");
+        console.log(emplist);
+
+        //shift():remove the zero index element
+        emplist.shift();
+        console.log(emplist);
+
+        //unshift();add the element at zero index
+        emplist.unshift("nikil");
+        console.log(emplist);
+
+        //splice():at same time we can remove the a element and we can add the element.
+        emplist.splice(1, 2, "chiru", "Hanuman");
+        console.log(emplist)
+
+        //emplist=["nikil", "chiru", "Hanuman", "raju"]
+        //slice():we can take the element from array & it return new array
+        let sliceElement = emplist.slice(2, 4);
+        console.log(sliceElement);
+
+        //concat():add two or more arrays and give a new array
+        emplist1 = ["nikil", "chiru", "Hanuman", "raju"];
+        emplist2 = ["pranay1", "sai1", "shashi1", "gopal1"];
+        let z = emplist.concat(emplist1, emplist2);
+        console.log(z);
+
+        //Indexof():It give the indexof the given element.if the element is not the array it return -1
+        let emplst = ["pranay", "sai", "shashi", "gopal"];
+        let index1 = emplst.indexOf("shashi");
+        console.log(index1);
+
+        //find():It find the value and return that value.if the value is not exist in the array it give "undefined".
+        let newEmplst = [{ name: "Raju", emailid: "raju@gmail.com" }, { name: "prashanth", emailid: "dadi@gmail,com" }, { name: "Raju", emailid: "r@gmail.com", p: 635634 }];
+        let foundEmp = newEmplst.find(emp => emp.name === "Raju" && emp.emailid === "r@gmail.com");
+        console.log(foundEmp.p);
+
+        // //findindex():It execute the function for each array element.It return index value and value and total array
+        let newEmpl = [{ name: "Raju", emailid: "raju@gmail.com" }, { name: "prashanth", emailid: "dadi@gmail,com" }, { name: "pranay", emailid: "dd@gmail,com" }];
+        let a__ = newEmpl.findIndex(emp => emp.name === "prashanth");
+        console.log(a__);
+
+        //sort(): sort the elelments in the alphabetical order
+        let empls = ["pranay", "sai", "shashi", "gopal", "raju", "CHIRU", "nIKIL", "Hanuman", "Wan"];
+        console.log(empls.sort());
+
+        let numbers = [23, 43, 23, 11, 44, 1, 112, 4, 7];
+        numbers.sort((a, b) => { return a - b });
+        console.log(numbers)
+
+        //reverse():It reverse the array
+        console.log(numbers.reverse())
+
+        // //filter():filter the all the values in array.If that value is not in exist in the array it return emptyarray [].
+        let newEmp = [{ name: "raju", emailid: "raju@gmail.com" }, { name: "prashanth", emailid: "dadi@gmail,com" }, { name: "raju", emailid: "dd@gmail,com" }, { name: "raju", emailid: "d@gmail,com" }];
+        let x = newEmp.filter(e => e.name === "aju");
+        console.log(x);
+        //Remove the duplictes from array
+        let a_3 = [2, 2, 3, 4, 6, 7, 8, 9, 9]
+        let uniqueArr = []
+        for (let i of a_3) {
+            console.log(i)
+            if (uniqueArr.indexOf(i) === -1) {
+                uniqueArr.push(i);
+                console.log(uniqueArr)
+
+            }
+        }
+
+        // function myFun() {
+        let arr__ = ['a', 's', 'd', 'f']
+        let i__ = arr__.toString();
+        console.log(i__)
+        console.log(arr__.join(","))
+
+        // }
+        // myFun()
+        // let numbers1 = [1, 2, 3];
+        // let sum = numbers1.reduce(function (previousValue, currentValue) {
+
+        //     return previousValue + currentValue;
+        // });
+
+
+
+        // console.log(sum);
+        let newEmp_ = [{ name: "Raju", emailid: "raju@gmail.com", age: '22' }, { name: "prashanth", emailid: "dadi@gmail,com", age: '32' }, { name: "pranay", emailid: "dd@gmail,com", age: '33' }];
+        newEmp_.forEach((each) => each)
+        console.log(newEmp_)
+
+        // Object[] notations..........................
+        let array1 = { "name": "Raju", emailid: "raju@gmail.com" } //if the key in string their we access the item using Array notation
+        console.log(array1['name'], 'dfghjkl')
+
+        let studentResults = [
+            { name: "Pranay", totalMarks: 540, maximumMarks: 600, section: "A" },
+            { name: "Gopal", totalMarks: 520, maximumMarks: 600, section: "A" },
+            { name: "Sai", totalMarks: 560, maximumMarks: 600, section: "A" },
+            { name: "Raju", totalMarks: 535, maximumMarks: 600, section: "B" },
+            { name: "Chiru", totalMarks: 360, maximumMarks: 600, section: "B" },
+            { name: "Ramu", totalMarks: 600, maximumMarks: 600, section: "B" },
+            { name: "prashant", totalMarks: 355, maximumMarks: 600, section: "B" }
+
+        ];
+        //   const color= {green:2, yellow:1 ,brown:4, blue:0, white:3}
+        //   let clr=new Array()
+        //   let max__=0
+        //  let cl= Object.entr(color).sort();
+        //  console.log(cl);
+        //  for (let i in color){
+        //     console.log(i);
+        //     if(color[i]>max__){
+        //         clr.push(i)
+        //         max__=color[i]
+        //     }
+        //     else{
+        //         clr.unshift(i)
+        //     }
+        // }
+        console.log("ghjk".split(""));
+        const result1 = 2345 % 10;
+        const result2 = 6545 % 10;
+        const result3 = 100 % 10;
+
+        // compare the last digits
+        if (result1 == result2 && result1 == result3) {
+            console.log(`${result1}, ${result2} and ${result3} have the same last digit.`);
+        }
+        else {
+            console.log(`${result1}, ${result2} and ${result3} have different last digit.`);
+        }
+
+        const cc = "green2 yellow1 brown4 blue0 white3 green2"
+        let dd = cc.split(" ")
+        for (let i = 0; i < dd.length; i++) {
+            for (let j = i + 1; j < dd.length; j++) {
+                if (dd[i].charAt(dd[i].length - 1)> dd[j].charAt(dd[j].length - 1)) {
+                    [dd[i],dd[j]] = [dd[j],dd[i]]
+                }
+            }
+        }
+        console.log(dd.join(" "));
+       let l1 = [1, 2, [3, 4, [5, 6]], 7, 8, [9, [10]],[[67,[[4,8,0]],99],565]]
+       let  l2=[]
+        function arr_12(l){
+            for(let i of l)
+            if(typeof(i)===typeof([])){
+                arr_12(i)
+            } 
+            else{
+                l2.push(i)
+            }
+        }
+        arr_12(l1)
+        console.log(l2,"l22222222222222222",typeof([]),);//o/p:[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 67, 4, 8, 0] 
+        
+        const arr__1 = [2, 2, 3, 3, 4, 5, 6, 7, 2, 2, 6, 2, 2, 3, 4, 9, 1];
+
+        for (let i = 0; i < arr__1.length; i++) {
+            for (let j = i + 1; j < arr__1.length; j++) {
+                if (arr__1[i] > arr__1[j]) {
+                    [arr__1[i], arr__1[j]] = [arr__1[j], arr__1[i]]
+                }
+            }
+        }
+        console.log(arr__1);
+
+        var arr_8 = [
+            { color: "green", card: "2" },
+            { color: "yellow", card: "2" },
+            { color: "brown", card: "4" },
+            { color: "white", card: "3" },
+        ];
+        let clr = arr_8.sort((a, b) => a.card - b.card)
+        console.log(clr);
+        //Get topper of the class (Name and marks)
+        let topper_cls = studentResults.sort((a, b) => b.totalMarks - a.totalMarks)
+        console.log(topper_cls[0], "topperrrrrrrrrrrrrrr");
+        //Number of passed students with names (Cut of percentage: 60% )
+        let passed_Students = []
+        for (let each of studentResults) {
+            let percentage = each.totalMarks / 600 * 100
+            if (percentage >= 60.0) {
+                passed_Students.push(each.name)
+            }
+        }
+        console.log(passed_Students);
+        //Get topper of the each section (Name and marks)
+        let a_section = studentResults.filter((each) => each.section === "A").sort((a, b) => b.totalMarks - a.totalMarks)
+        console.log(a_section[0].name, a_section[0].totalMarks, "A_sectionnnnnnnnnn");
+
+        let b_section = studentResults.filter((each) => each.section === "B").sort((a, b) => b.totalMarks - a.totalMarks)
+        console.log(b_section[0].name, b_section[0].totalMarks, "B_sectionnnnnnnnnn")
+
+        //get most repeated number in array  
+        const arr1 = [2, 2, 3, 3, 4, 5, 6, 7, 2, 2, 6, 2, 2, 3, 4, 9];
+        let obj_1 = new Object()
+
+        for (let i of arr1) {
+            obj_1[i] = obj_1[i] ? obj_1[i] + 1 : 1;
+            // if(obj_1[i]){
+            //     obj_1[i]++
+            // }
+
+            // else{
+            //     obj_1[i]=1
+            // }
+        }
+        console.log(obj_1);
+        let max_ = 0;
+        let re_ = null;
+
+        for (let i in obj_1) {
+            console.log(obj_1[i],i);
+            if (obj_1[i] > max_) {
+                max_ = obj_1[i]
+                re_ = i
+            }
+        }
+        console.log("max  repeated number", re_, "repeated", max_, "times");
+
+        let obj__ = { name: "Pranay", totalMarks: 540, maximumMarks: 600, section: "A" }
+        //*****for in can work for object and it return keys of object
+        for (let i in obj__) {
+            console.log(obj__[i]);
+        }
+
+        //Dates--------------------
+        const date_ = new Date()
+        // console.log(date_.toLocaleString(),"toLocaleString------------");
+        // console.log(date_.getFullYear(),"getFullYear------------");
+        // console.log(date_.getMonth(),"getMonth------------");
+        // console.log(date_.getDate(),"getDate------------");
+        // console.log(date_.getDay(),"getDay------------");
+        // console.log(date_.getHours(),"getHours------------");
+        // console.log(date_.getMinutes(),"getMinutes------------");
+        // console.log(date_.getSeconds(),"getSeconds------------");
+        // console.log(date_.getMilliseconds(),"getMilliseconds------------");
+        // console.log(date_.toDateString(),"toDateString------------");
+
+        //MATH--------------------------------------
+        //the math object can allows you to perfrom mathematical tasks on numbers...
+        let number_ = 10.55758
+        console.log(Math.PI);
+        console.log(Math.round(number_, "it round number to nearest integer"));
+        console.log(Math.pow(5, 3), "the value return x to the  power y");
+        console.log(Math.sqrt(11), "it returns square root of x");
+        console.log(Math.abs(-919), "it returns obsolute (positive) value  of x");
+        console.log(Math.abs(-16.99), "it returns obsolute (positive) value  of x");
+        console.log(Math.ceil(19.422), "it returns x value of x rounded up to its nearest interger");//if the value is x=18.01 its rounded it to 19
+        console.log(Math.ceil(9.88), "it returns square root of x");
+        console.log(Math.floor(7.86), "it returns value of x rounded down to its nearest value");//if 2.75 its return 2 
+
+
+
+        // The in operator check if a property exists in an object. and it return true are false
+
+        //         let employee = {
+        //     firstName: 'Peter',
+        //     lastName: 'Doe',
+        //     employeeId: 1
+        // };
+
+        // console.log('ssn' in employee);
+        // console.log('employeeId' in employee);
+
+        // let person = {
+        //     firstName: 'John',
+        //     lastName: 'Doe',    'firstName': 'Jo',
+
+        // };
+        // person.age = 25;
+        // console.log(person);
+        // console.log(delete person['firstName']);
+        // console.log(person);
+
+        // let age = 25;
+        // let newAge = age;
+
+        // newAge = newAge + 1;
+        // console.log(age, newAge);
+
+        // let Arr=[
+        // {
+        // "userId": 1,
+        // "id": 1,
+        // "title": "delectus aut autem",
+        // "completed": false
+        // },
+        // {
+        // "userId": 1,
+        // "id": 2,
+        // "title": "quis ut nam faciliset official qui",
+        // "completed": false
+
+
+        // },
+        // {
+        // "userId": 1,
+        // "id": 3,
+        // "title": "fugiat veniam minus",
+        // "completed": false
+        // },
+        // {
+        // "userId": 1,
+        // "id": 4,
+        // "title": "et porro tempora",
+        // "completed": true
+        // }];
+
+
+        // const index=Arr.filter(a=>a.id%2!==0);
+        // console.log(index);
+
+        // let colors=["red", "yellow", "pink", "green", "purple", "blue"]
+        //  colors.splice(1,2, 'purple', 'pink');
+        //  console.log(colors); 
+
+        let str = 'You do not know what you do not know until you know.know ';
+        let substr = 'know';
+
+        let count = 0;
+
+        let inde = str.indexOf(substr);
+        while (inde !== -1) {
+            console.log(inde);
+            count++;
+            inde = str.indexOf(substr, inde + 1);
+            console.log(inde);
+        }
+
+        console.log(count);
+        let text = "How are you doing today?";
+        const myArray = text.split(" ");
+        console.log(myArray);
+
+        let arry1 = [5, 67, 8, 799, 345, 654, 322, -659, 998, 67, 1, 67, 45678, 8765, 67890, 2345, -37, 234567]
+        let len = arry1.length
+        max = 0
+        while (len--) {
+            if (arry1[len] > max) {
+                max = arry1[len]
+            }
+        }
+        console.log(max)
+
+
+        let a = ["a", "r", "r", "a", "y"]
+        let t = "";
+        for (let i of a) {
+            t = t + i
+        }
+        console.log(typeof (t), t, 'string..................');//array to string
+
+
+        let s = "array"//string to array
+        let ar = Array.from(s)
+        console.log(ar);
+        let arr = [];
+        for (let i of s) { //for...of iterator
+            arr.push(i)
+        }
+        console.log(arr);
+
+        //let $=0
+        //console.log("s2",$);
+        function* add(a, b) { //generators................
+            yield (3 * a * b)
+            yield (4 + a - b)
+        }
+        let i = add(2, 4)
+        console.log(i.next())
+        console.log(i.next())
+        console.log(i.next())
+
+        //set............
+        let s1 = "array"
+        let se = new Set(s1)
+        console.log(se); //o/p :{'a', 'r', 'y'}
+
+
+        let a_1 = ["a", "r", "r", "a", "y"] //f
+        let s_2 = new Set(a_1)
+        console.log(s_2); //o/p :{'a', 'r', 'y'}
+
+        let o_1 = { a: 1, b: 2, c: 3, a: 5, c: 3 }//**Note: object is not iterable
+        // let s_3=new Set(o_1)
+        // console.log(o_1);
+
+        let c_0 = "zzzarrayarrrrray333333333333333"
+
+        console.log([...c_0]);///**** note it retun ['z','z','z',a', 'r', 'r', 'a', 'y', 'a', 'r', 'r', 'a', 'y']
+        var result = [...c_0].reduce((a, e) => {
+            a[e] = a[e] ? a[e] + 1 : 1;
+            return a;
+        }, {})
+        console.log(result); //o/p:{z: 3, a: 4, r: 7, y: 2}
+
+        //method 2
+        let obj = new Object()
+        for (const ch of c_0) {
+            // obj[ch]=obj[ch]?obj[ch]+1:1;(or)
+            if (obj[ch]) {
+                obj[ch] = obj[ch] + 1
+            }
+            else {
+                obj[ch] = 1
+            }
+
+        }
+        console.log(obj);//0/p{z: 3, a: 4, r: 7, y: 2}
+
+        let ind = '';//max repeted value
+        let ma = 0;
+
+        for (let i in obj) {
+            if (obj[i] > ma) {
+                ma = obj[i]
+                ind = i
+            };
+        }
+        console.log(ind, "is max repeted item", ma);
+
+
+        let n_1 = 111
+        let l_1 = n_1.toString().length;
+        console.log(l_1, typeof (l_1), "cfghjklllllllll");
+        while (l_1--) {
+            if (n_1 > 100) {
+                ++n_1
+                console.log(n_1);
+            }
+
+        }
+
+        console.log("n_1", n_1);
+
+        let nu_1 = 78
+        let nu_3 = 65;
+        //swap the two number 
+        [nu_1, nu_3] = [nu_3, nu_1]
+        console.log(nu_1, nu_3, 2 % "2");
+
+        let arr_2 = [1, 2, 4, 5, 2, 2, 3, 3]
+        let arr_3 = [];
+        for (let i = 0; i < arr_2.length; i++) {
+            arr_3 = arr_2[i]
+            console.log(arr_3);
+
+        }
+        //synchronous and asynchronous
+        console.log("first");
+        console.log("second");
+        console.log('third');
+
+        //asynchronous
+        console.log('first');
+        setTimeout(() => { console.log('second') }, 1000)
+        console.log('third');
+
+        setTimeout(function () {
+            myAsyn("i love progarming");
+        }, 2000)
+
+
+        function myAsyn(val) {
+            document.getElementsByTagName("p").innerHTML = val
+            console.log(val);
+        }
+        //args...................... [spread operator]
+        function sum(...args) {
+            let sum_ = 0;
+            for (let i of args) {
+                sum_ += i
+            }
+            return sum_
+        }
+        let x_ = sum(1, 3, 4, 6, 8)
+        console.log(x_);
+
+        //bind and apply methods-------
+        const personName = {
+            FullName: function (city, country) {
+                return this.firstName + "" + this.lastName + "," + city + "," + country
+            }
+        }
+        const person_1 = {
+            firstName: "pranay",
+            lastName: "dadi"
+        }
+        let per = personName.FullName.apply(person_1, ["hsp", "hnk"])
+        console.log(per);
+
+
+        //class methods ----------------------
+        class Students {
+            constructor(name) {
+                this.name = name
+            }
+
+            bio() {
+                console.log(`${this.name}`);
+            }
+        }
+
+        let bio1 = new Students('vinod');
+        bio1.bio()
+        // object properties 
+
+        let biodata = {
+            fullName: {
+                myname: "prashanth",
+                lastname: "dadi"
+            }, myage: 24,
+            getData() {
+                console.log(`myname is${this.fullName.myname}`)
+            }
+        }
+            biodata.getData()
+        //padStart-------------------padEnd
+            let my_age="26".padStart(10)
+            console.log(my_age);
+            //faltArray-----------------
+           let arr_9= ["red","blue",["purple","green"],["white","yellow"]].flat()
+               console.log(arr_9);//o/p:['red', 'blue', 'purple', 'green', 'white', 'yellow']
+               let arr_10= ["red","blue",["purple","green"],[["white","yellow"]]].flat(2)
+               console.log(arr_10);//o/p:['red', 'blue', 'purple', 'green', 'white', 'yellow']
+               let arr_11= ["red","blue",["purple","green"],[[[[["white","yellow"]]]]]].flat(Infinity)
+               console.log(arr_11);//o/p:['red', 'blue', 'purple', 'green', 'white', 'yellow']
+                   //fromentries and entries----------------------------------------
+                   let Obj_1={name:'prashanth',age:"23",phone:"745678834"}
+                   let arr_obj=Object.entries(Obj_1);//o/p:[['name', 'prashanth'],['age', '23'],['phone', '745678834']
+                   console.log(arr_obj);
+                  console.log(Object.fromEntries(arr_obj));//o/p:{name: 'prashanth', age: '23', phone: '745678834'}
+    </script>
+
+</body>
+
+</html>

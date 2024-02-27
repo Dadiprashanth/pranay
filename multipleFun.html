@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
+<h2>multiple funtions</h2>
+
+<body>
+    <script>
+        function currying(fn, ...args) {
+   
+   return (..._arg) => {
+       return fn(...args, ..._arg);
+   };
+}
+
+function sum(a,b,c) {
+   console.log(a,b,c)
+   return a + b + c;
+}
+
+let add = currying(sum,10);
+
+add(20,90); // 120
+
+//add(70,60); // 140
+    </script>
+    
+</body>
+</html>
