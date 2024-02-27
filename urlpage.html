@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        p {
+            color: rgb(51, 0, 128);
+            text-indent: 50px;
+            text-transform: camelcase;
+
+        }
+    </style>
+</head>
+
+<body>
+    <p id="demo1"></p>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+    <script>
+        let params = new URLSearchParams(document.location.search);
+        console.log(params)
+        let categoryId = params.get("categoryId");
+        let brandId = params.get("brandId");
+        let productId = params.get("productId")
+        let obj = JSON.parse(localStorage.getItem("obj"))
+        console.log(obj)
+        for (let i = 0; i < obj.category.length; i++) {
+            if (obj.category[i]["id"] == categoryId) {
+                var id1 = obj.category[i]["name"]
+            }
+        }
+        for (let i = 0; i < obj.brands.length; i++) {
+            if (obj.brands[i]["id"] == brandId) {
+                var id2 = obj.brands[i]["name"]
+            }
+        }
+        for (let i = 0; i < obj.product.length; i++) {
+            if (obj.product[i]["id"] == productId) {
+                var id3 = obj.product[i]["name"]
+            }
+            let categoryname = document.getElementById("demo1");
+            categoryname.textContent = id1;
+            let brandName = document.getElementById("demo2");
+            brandName.textContent = id2;
+            let productName = document.getElementById("demo3");
+            productName.textContent = id3;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+
+<head>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        form {
+            /* text-align: center; */
+            padding: 10px;
+            margin-left: 0 auto;
+            margin: 0 auto;
+            border: 1px solid rgb(99, 100, 40);
+            width: 1000px;
+            background-color: rgb(169, 234, 239);
+        }
+    </style>
+
+    <!-- Add Product
+
+Given a JSON object below. There we have 3 types of data(category, brands, products). Using that
+need to implement a form.
+Add product page
+1. Display all categories in a dropdown.
+2. While changing the Category dropdown, then the category-related Brands should be
+displayed in the second dropdown.
+3. While changing the Brands dropdown, then the brands-related Products should be
+displayed in the Third dropdown.
+4. Keep an input filed for description
+5. Every record has an id
+6. Store the IDs in local storage instead of names.
+7. After the form submission displays the records below the form. -->
+
+</head>
+
+<body>
+    <form id="form">
+        <h1>prodcut Form</h1>
+        <label for="category">select category:</label><br>
+        <select id="category" onclick="selectVal()">
+            <option>category</option>
+        </select><br>
+        <label for="brand">select category:</label><br>
+        <select id="brand" onclick="productSel()">
+        </select><br>
+        <label for="product">select category: </label><br>
+        <select id="product">
+        </select><br>
+        <label for="content">some content:</label><br>
+        <input type="text" id="content"><br>
+        <input type="button" onclick="submitFun()" value="submit" class="btn btn-info"
+            class="btn btn-success pull-right"><br>
+    </form>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Category</th>
+                <th>Brands</th>
+                <th>product</th>
+                <th>content</th>
+                <th>button</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+        </tbody>
+    </table>
+</body>
+</form>
+
+<script>
+    var obj = {
+        "category": [
+            { "id": 1, "name": "mobiles" },
+            { "id": 2, "name": "books" },
+            { "id": 3, "name": "furniture" },
+            { "id": 4, "name": "watches" }
+        ],
+        "brands": [
+            { "id": 1, name: "Samsung", categoryId: 1 },
+            { "id": 2, name: "Oppo", categoryId: 1 },
+            { "id": 3, name: "Vivo", categoryId: 1 },
+            { "id": 4, name: "Apple", categoryId: 1 },
+            { "id": 5, name: "Sony", categoryId: 1 },
+            { "id": 6, name: "Peter James", categoryId: 2 },
+            { "id": 7, name: "LJ Ross", categoryId: 2 },
+            { "id": 8, name: "Lee Child", categoryId: 2 },
+            { "id": 9, name: "Alex Gray", categoryId: 2 },
+            { "id": 10, name: "Joy Ellis", categoryId: 2 },
+            { "id": 11, name: "Peter May", categoryId: 2 },
+            { "id": 12, name: "Jenny Colgan", categoryId: 2 },
+            { "id": 13, name: "Godrej Interio", categoryId: 3 },
+            { "id": 14, name: "Durian", categoryId: 3 },
+            { "id": 15, name: "Usha", categoryId: 3 },
+            { "id": 16, name: "Indigo Interiors", categoryId: 3 },
+            { "id": 17, name: "Urban Ladder", categoryId: 3 },
+            { "id": 18, name: "Ikea", categoryId: 3 },
+            { "id": 19, name: "Casio", categoryId: 4 },
+            { "id": 20, name: "Daniel Wellington", categoryId: 4 },
+            { "id": 21, name: "Hamilton", categoryId: 4 },
+            { "id": 22, name: "Timex", categoryId: 4 },
+            { "id": 23, name: "Raymond Weil", categoryId: 4 }
+        ],
+        "product": [
+            { "id": 1, "name": "Galaxy S22 Ultra", "categoryId": 1, brandId: 1 },
+            { "id": 2, "name": "Galaxy A53 5G", "categoryId": 1, brandId: 1 },
+            { "id": 3, "name": "Galaxy Z Fold3 5G", "categoryId": 1, brandId: 1 },
+            { "id": 4, "name": "Galaxy Z Flip", "categoryId": 1, brandId: 1 },
+            { "id": 5, "name": "Galaxy Note", "categoryId": 1, brandId: 1 },
+            { "id": 6, "name": "OPPO Find X2", "categoryId": 1, brandId: 2 },
+            { "id": 7, "name": "OPPO Reno7 Pro 5G", "categoryId": 1, brandId: 2 },
+            { "id": 8, "name": "OPPO F21 Pro", "categoryId": 1, brandId: 2 },
+            { "id": 9, "name": "OPPO A96", "categoryId": 1, brandId: 2 },
+            { "id": 10, "name": "OPPO K10", "categoryId": 1, brandId: 2 },
+            { "id": 11, "name": "T1 5G", "categoryId": 1, brandId: 3 },
+            { "id": 12, "name": "X70 Pro", "categoryId": 1, brandId: 3 },
+            { "id": 13, "name": "V23e 5G", "categoryId": 1, brandId: 3 },
+            { "id": 14, "name": "S1 Pro", "categoryId": 1, brandId: 3 },
+            { "id": 15, "name": "Y33T", "categoryId": 1, brandId: 3 },
+            { "id": 16, "name": "iPhone 13 Pro", "categoryId": 1, brandId: 4 },
+            { "id": 17, "name": "iPhone 13", "categoryId": 1, brandId: 4 },
+            { "id": 18, "name": "iPhone SE", "categoryId": 1, brandId: 4 },
+            { "id": 19, "name": "iPhone 12", "categoryId": 1, brandId: 4 },
+            { "id": 20, "name": "iPhone 11", "categoryId": 1, brandId: 4 },
+            { "id": 21, "name": "Xperia XA1", "categoryId": 1, brandId: 5 },
+            { "id": 22, "name": "Xperia L2", "categoryId": 1, brandId: 5 },
+            { "id": 23, "name": "Xperia XZ1", "categoryId": 1, brandId: 5 },
+            { "id": 24, "name": "Xperia XA1 Plus", "categoryId": 1, brandId: 5 },
+            { "id": 25, "name": "Xperia XZ1 Compact", "categoryId": 1, brandId: 5 },
+
+            { "id": 26, "name": "Dream Town", "categoryId": 2, brandId: 6 },
+            {
+                "id": 27, "name": "The Vatican Secret", "categoryId": 2, brandId: 6
+
+            },
+
+            { "id": 28, "name": "Mania", "categoryId": 2, brandId: 6 },
+            { "id": 29, "name": "Dark Horse", "categoryId": 2, brandId: 6 },
+            { "id": 30, "name": "Once a Thief", "categoryId": 2, brandId: 6 },
+            { "id": 31, "name": "The Sixth Window", "categoryId": 2, brandId: 7 },
+            { "id": 32, "name": "Curse the Day", "categoryId": 2, brandId: 7 },
+            { "id": 33, "name": "The Creek", "categoryId": 2, brandId: 7 },
+            { "id": 34, "name": "The Cove", "categoryId": 2, brandId: 7 },
+            { "id": 35, "name": "Mania", "categoryId": 2, brandId: 7 },
+            { "id": 36, "name": "Die Trying", "categoryId": 2, brandId: 8 },
+            { "id": 37, "name": "Tripwire", "categoryId": 2, brandId: 8 },
+            { "id": 38, "name": "The Enemy", "categoryId": 2, brandId: 8 },
+
+            { "id": 39, "name": "One Shot", "categoryId": 2, brandId: 8 },
+            { "id": 40, "name": "61 Hours", "categoryId": 2, brandId: 8 },
+            { "id": 41, "name": "A small weeping", "categoryId": 2, brandId: 9 },
+            {
+                "id": 42, "name": "Never somewhere else", "categoryId": 2, brandId: 9
+
+            },
+
+            { "id": 43, "name": "The Riverman", "categoryId": 2, brandId: 9 },
+            { "id": 44, "name": "The bank job", "categoryId": 2, brandId: 9 },
+            { "id": 45, "name": "still dark", "categoryId": 2, brandId: 9 },
+            { "id": 46, "name": "Mask Wars", "categoryId": 2, brandId: 10 },
+            { "id": 47, "name": "Shadowbreaker", "categoryId": 2, brandId: 10 },
+            { "id": 48, "name": "Fire on the fens", "categoryId": 2, brandId: 10 },
+            { "id": 49, "name": "Beware the past", "categoryId": 2, brandId: 10 },
+            { "id": 50, "name": "Guide star", "categoryId": 2, brandId: 10 },
+            { "id": 51, "name": "The killing room", "categoryId": 2, brandId: 11 },
+            { "id": 52, "name": "The runner", "categoryId": 2, brandId: 11 },
+            { "id": 53, "name": "Snakehead", "categoryId": 2, brandId: 11 },
+            { "id": 54, "name": "The Blackhouse", "categoryId": 2, brandId: 11 },
+            { "id": 55, "name": "Runaway", "categoryId": 2, brandId: 11 },
+            { "id": 56, "name": "Class", "categoryId": 2, brandId: 12 },
+            { "id": 57, "name": "Rules", "categoryId": 2, brandId: 12 },
+            { "id": 58, "name": "The stormy Day", "categoryId": 2, brandId: 12 },
+            { "id": 59, "name": "The New Friend", "categoryId": 2, brandId: 12 },
+            {
+                "id": 60, "name": "The Happy Christmas", "categoryId": 2, brandId: 12
+
+            },
+
+            {
+                "id": 61, "name": "Modular Wardrobes", "categoryId": 3, brandId: 13
+
+            },
+
+            { "id": 62, "name": "Home Lockers", "categoryId": 3, brandId: 13 },
+            { "id": 63, "name": "Tables", "categoryId": 3, brandId: 13 },
+            { "id": 64, "name": "Chairs", "categoryId": 3, brandId: 13 },
+            { "id": 65, "name": "Display Units", "categoryId": 3, brandId: 13 },
+            { "id": 66, "name": "Marble Tv Units", "categoryId": 3, brandId: 14 },
+            { "id": 67, "name": "Study Desk", "categoryId": 3, brandId: 14 },
+            { "id": 68, "name": "File Cabinets", "categoryId": 3, brandId: 14 },
+            { "id": 69, "name": "Fabric Chairs", "categoryId": 3, brandId: 14 },
+            { "id": 70, "name": "Leather Chairs", "categoryId": 3, brandId: 14 },
+            { "id": 71, "name": "Fans", "categoryId": 3, brandId: 15 },
+            { "id": 72, "name": "Sewing Machines", "categoryId": 3, brandId: 15 },
+            { "id": 73, "name": "Water Heaters", "categoryId": 3, brandId: 15 },
+            { "id": 74, "name": "Room Heateers", "categoryId": 3, brandId: 15 },
+            {
+                "id": 75, "name": "Cooking Appliances", "categoryId": 3, brandId: 15
+
+            },
+
+            { "id": 76, "name": "Kitchen Interior", "categoryId": 3, brandId: 16 },
+
+            { "id": 77, "name": "Living Room", "categoryId": 3, brandId: 16 },
+            { "id": 78, "name": "False Ceiling", "categoryId": 3, brandId: 16 },
+            { "id": 79, "name": "Dining Room", "categoryId": 3, brandId: 16 },
+            { "id": 80, "name": "Foyer", "categoryId": 3, brandId: 16 },
+            { "id": 81, "name": "Cupboards", "categoryId": 3, brandId: 17 },
+            { "id": 82, "name": "Matresses", "categoryId": 3, brandId: 17 },
+            { "id": 83, "name": "Coffee Tables", "categoryId": 3, brandId: 17 },
+            { "id": 84, "name": "Decor", "categoryId": 3, brandId: 17 },
+            { "id": 85, "name": "Recliners", "categoryId": 3, brandId: 17 },
+            { "id": 86, "name": "Room Dividers", "categoryId": 3, brandId: 18 },
+            {
+                "id": 87, "name": "Outdoor furniture", "categoryId": 3, brandId: 18
+
+            },
+
+            { "id": 88, "name": "Trolleys", "categoryId": 3, brandId: 18 },
+            {
+                "id": 89, "name": "Book cases And Shelving units", "categoryId": 3,
+
+                brandId: 18
+            },
+
+            {
+                "id": 90, "name": "Nursery Furniture", "categoryId": 3, brandId: 18
+
+            },
+
+            {
+                "id": 91, "name": "G-SHOCK GMA-B800-1ADR - G997", "categoryId": 4,
+
+                brandId: 19
+            },
+
+            {
+                "id": 92, "name": "G-SHOCK GMA-B800-7ADR - G998", "categoryId": 4,
+
+                brandId: 19
+            },
+
+            {
+                "id": 93, "name": "G-SHOCK GM-S2100B-8ADR - G1164", "categoryId": 4,
+
+                brandId: 19
+            },
+
+            {
+                "id": 94, "name": "G-SHOCK GM-S2100MF-1ADR - G1221", "categoryId": 4,
+
+                brandId: 19
+            },
+
+            {
+                "id": 95, "name": "G-SHOCK GM-S5600SB-1DR - G1103", "categoryId": 4,
+
+                brandId: 19
+            },
+
+            { "id": 96, "name": "PETITE ROUGE", "categoryId": 4, brandId: 20 },
+            { "id": 97, "name": "QUADRO CORAL", "categoryId": 4, brandId: 20 },
+            { "id": 98, "name": "Unisex Full Rim 100% UV Protection (UV 400) CatEye Sunglasses - DW00900027", "categoryId": 4, brandId: 20 },
+
+            { "id": 99, "name": "Unisex Full Rim 100% UV Protection (UV 400) SquareSunglasses - DW00900013'", "categoryId": 4, brandId: 20 },
+
+            { "id": 100, "name": "Womens 22x22 mm Studio Black Dial Stainless SteelAnalog Watch - DW00100518", "categoryId": 4, brandId: 20 },
+            {
+                "id": 101, "name": "Khaki AviationX-Wind Auto Chrono", "categoryId":
+
+                    4, brandId: 21
+            },
+
+            { "id": 102, "name": "VenturaQuartz", "categoryId": 4, brandId: 21 },
+            {
+                "id": 103, "name": "Khaki FieldMechanical 38mm", "categoryId": 4,
+
+                brandId: 21
+            },
+
+            {
+                "id": 104, "name": "American ClassicPSR Digital Quartz",
+
+                "categoryId": 4, brandId: 21
+            },
+
+            {
+                "id": 105, "name": "JazzmasterOpen Heart Auto", "categoryId": 4,
+
+                brandId: 21
+            },
+
+            { "id": 106, "name": "TIMEX Q REISSUE ANALOG BLUE DIAL MEN'SWATCH-TW2U61100", "categoryId": 4, brandId: 22 },
+
+            {
+                "id": 107, "name": "TIMEX FIT 2.0 SQUARE CALLING WATCH-TWTXW204T",
+
+                "categoryId": 4, brandId: 22
+            },
+
+            { "id": 108, "name": "TIMEX ROSE EDITION MULTIFUNCTION ANALOG GOLD DIALWOMEN'S WATCH-TWEL13205", "categoryId": 4, brandId: 22 },
+
+            { "id": 109, "name": "TW2T88000", "categoryId": 4, brandId: 22 },
+            {
+                "id": 110, "name": "TIMEX MENS BLUE DIAL WATCH TWEG20103",
+
+                "categoryId": 4, brandId: 22
+            },
+
+            {
+                "id": 111, "name": "Freelancer2785-ST-65001", "categoryId": 4,
+
+                brandId: 23
+            },
+
+            { "id": 112, "name": "RAYMOND WEILFreelancer Calibre RW1212 Men'sAutomatic Green Steel Watch, 42mm2780-ST-52001", "categoryId": 4, brandId: 23 },
+            { "id": 113, "name": "RAYMOND WEILTango 300 Men's Quartz ChronographBlack Rubber Strap Watch, 43mm8570-R51-20001", "categoryId": 4, brandId: 23 },
+            {
+                "id": 114, "name": "Raymond Weil Freelancer 2780-SC5-20001",
+
+                "categoryId": 4, brandId: 23
+            },
+
+            {
+                "id": 115, "name": "Freelancer2738-STP-20001", "categoryId": 4,
+
+                brandId: 23
+            }
+        ]
+    };
+    var id;
+    var prod1 = [];
+    let category = document.getElementById("category");
+    for (let i = 0; i < obj.category.length; i++) {
+        category.innerHTML = category.innerHTML +
+            '<option ' + obj.category[i]["id"] + '>' + obj.category[i]["name"] + '</option>';
+    }
+    let brand1 = document.getElementById("brand");
+    function selectVal() {
+        if (brand.children) {
+            brand.replaceChildren();
+        }
+        var prodcut1 = document.getElementById("category").value;
+        for (let i = 0; i < obj.category.length; i++) {
+            if (obj.category[i]["name"] == prodcut1) {
+                id = obj.category[i]["id"]
+            }
+        }
+        for (let i = 0; i < obj.brands.length; i++) {
+            if (obj.brands[i]["categoryId"] == id) {
+                prod1.push(obj.brands[i]["name"])
+            }
+        }
+        prod1.forEach(item => {
+            let opt = document.createElement("option")
+            opt.text = item;
+            opt.value = item;
+            brand.appendChild(opt);
+        });
+        prod1 = []
+    };
+    let brandId;
+    let prod2 = [];
+    function productSel() {
+        if (product.children) {
+            product.replaceChildren();
+        }
+        brand1 = document.getElementById("brand").value;
+        for (let i = 0; i < obj.brands.length; i++) {
+            if (obj.brands[i]["name"] == brand1) {
+                brandId = obj.brands[i]["id"]
+            }
+        }
+        for (let i = 0; i < obj.product.length; i++) {
+            if (obj.product[i]["brandId"] == brandId) {
+                prod2.push(obj.product[i]["name"])
+            }
+        }
+        prod2.forEach(item => {
+            let optN = document.createElement("option");
+            optN.text = item;
+            optN.value = item;
+            product.appendChild(optN);
+        });
+        prod2 = [];
+    }
+    let categorysId;
+    let brandsId;
+    let productsId;
+    let idArr = [];
+    function submitFun() {
+        let prod = document.getElementById("category").value;
+        let brand = document.getElementById("brand").value;
+        let product = document.getElementById("product").value;
+        let text1 = document.getElementById("content").value;
+        if (!(prod == "category" || brand == "" || product == "" || text1 == "")) {
+            let tr1 = document.createElement("tr");
+            document.getElementById("myTable").appendChild(tr1)
+            let td1 = document.createElement("td");
+            td1.textContent = prod;
+            tr1.appendChild(td1);
+            let td2 = document.createElement("td");
+            td2.textContent = brand;
+            tr1.appendChild(td2);
+            let td3 = document.createElement("td");
+            td3.textContent = product;
+            tr1.appendChild(td3);
+            let td4 = document.createElement("td");
+            td4.textContent = text1;
+            tr1.appendChild(td4);
+            let td5 = document.createElement("td");
+            let bt1 = document.createElement("button")
+            bt1.setAttribute("onclick", "viewFun(this)");
+            bt1.textContent = "view";
+            td5.appendChild(bt1)
+            tr1.appendChild(td5);
+            if (JSON.parse(localStorage.getItem("idArr"))) {
+                idArr = JSON.parse(localStorage.getItem("idArr"))
+            }
+            for (let i = 0; i < obj.category.length; i++) {
+                if (obj.category[i]["name"] == prod) {
+                    categorysId = obj.category[i]["id"]
+                }
+            }
+            for (let i = 0; i < obj.brands.length; i++) {
+                if (obj.brands[i]["name"] == brand) {
+                    brandsId = obj.brands[i]["id"]
+                }
+            }
+            for (let i = 0; i < obj.product.length; i++) {
+                if (obj.product[i]["name"] == product) {
+                    productsId = obj.product[i]["id"]
+                }
+            }
+            creatobj1 = {
+                categoryId: categorysId,
+                brandId: brandsId,
+                productId: productsId,
+                content: text1
+            };
+            idArr.push(creatobj1)
+            localStorage.setItem("idArr", JSON.stringify(idArr));
+        }
+    };
+    let arr2 = []
+    if (!localStorage.getItem("idArr")) {
+        localStorage.setItem("idArr", JSON.stringify(idArr))
+    }
+    arr2 = JSON.parse(localStorage.getItem("idArr"));
+    let categoryName;
+    let brandName;
+    let productName;
+    text1 = document.getElementById("content").value;
+    function myFun(s) {
+        let tr = document.createElement("tr");
+        document.getElementById("myTable").appendChild(tr);
+        for (let i = 0; i < obj.category.length; i++) {
+            if (obj.category[i]["id"] == s.categoryId) {
+                categoryName = obj.category[i]["name"]
+            }
+        }
+        for (let i = 0; i < obj.brands.length; i++) {
+            if (obj.brands[i]["id"] == s.brandId) {
+                brandName = obj.brands[i]["name"]
+            }
+        }
+        for (let i = 0; i < obj.product.length; i++) {
+            if (obj.product[i]["id"] == s.productId) {
+                productName = obj.product[i]["name"]
+            }
+        }
+        text1 = s.content;
+        let td1 = document.createElement("td");
+        td1.textContent = categoryName;
+        tr.appendChild(td1);
+        let td2 = document.createElement("td");
+        td2.textContent = brandName;
+        tr.appendChild(td2);
+        let td3 = document.createElement("td");
+        td3.textContent = productName;
+        tr.appendChild(td3);
+        let td4 = document.createElement("td");
+        td4.textContent = text1;
+        tr.appendChild(td4);
+        let td5 = document.createElement("td");
+        let bt1 = document.createElement("button")
+        bt1.setAttribute("onclick", "viewFun(this)");
+        bt1.textContent = "view";
+        td5.appendChild(bt1)
+        tr.appendChild(td5);
+    }
+    arr2.forEach(element => {
+        myFun(element)
+    });
+    function viewFun(n) {
+        let pt1 = n.parentElement.parentElement.children[0].textContent;
+        let pt2 = n.parentElement.parentElement.children[1].textContent;
+        let pt3 = n.parentElement.parentElement.children[2].textContent;
+        for (let i = 0; i < obj.category.length; i++) {
+            if (obj.category[i]["name"] == pt1) {
+                id1 = obj.category[i]["id"]
+            }
+        }
+        for (let i = 0; i < obj.brands.length; i++) {
+            if (obj.brands[i]["name"] == pt2) {
+                id2 = obj.brands[i]["id"]
+            }
+        }
+        for (let i = 0; i < obj.product.length; i++) {
+            if (obj.product[i]["name"] == pt3) {
+                id3 = obj.product[i]["id"]
+            }
+        }
+        let viewObj = {
+            categoryId: id1,
+            brandId: id2,
+            productId: id3
+        }
+        var urlPage = new URL("file:////home/prashanthdadi/Documents/MyProjects/productlist/urlpage.html?");
+        var search_params = urlPage.searchParams;
+        let objKeys = Object.keys(viewObj)
+        let objValues = Object.values(viewObj)
+        for (let i = 0; i < objKeys.length; i++) {
+            search_params.set(`${objKeys[i]}`, `${objValues[i]}`);
+        }
+        var new_url = urlPage.toString();
+        location.assign(new_url)
+    }
+    localStorage.setItem("obj", JSON.stringify(obj))
+</script>
+
+</html>
+<!-- // let objArr3=[];
+    // objArr3.push(obj);
+    // localStorage.setItem("objArr3",JSON.stringify(objArr3))
+ //search_params.append('id', '102'); -->
+<!-- url.search = search_params.toString(); -->
+
+<!-- //var categoryArr=category.find(item=>item.name==selectval);
+//console.log(categoryArr.id);
+// var categoryArr=category.find(item=>item.name==selectval);
+// var brandArr=brands.filter(item=>item.categoryId==categoryArr.id);
+// for( var each of brandArr ){
+//  console.log(each.name);
+
+//  var optionC=document.createElement("option");
+//  optionC.setAttribute("value",each.name);
+
+// document.getElementById("brand").appendChild(optionC).textContent;
+ -->
