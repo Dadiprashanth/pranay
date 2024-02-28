@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        form {
+            text-align: center;
+            padding: 10px;
+            margin-left: 0 auto;
+            margin: 0 auto;
+            border: 1px solid rgb(197, 232, 197);
+            width: 500px;
+            background-color: rgb(254, 212, 158);
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <form id="Form" onsubmit="submitFun()">
+        <h2>Registration Page</h2>
+        <div>
+            first name:<input type="text" id="firstname" placeholder=" Enter firstname" class="form-control"
+                required /><br>
+            <p id="firstNameEm" class="text-white bg-dark"></p><br>
+            last name: <input type="text" id="lastname" placeholder="Enter lastname" class="form-control"
+                required /><br>
+            <p id="lastNameEm" class="text-white bg-dark"></p><br>
+            email:<input type="email" id="email" placeholder=" Enter email" class="form-control" required /><br>
+            <p id="emailEm"></p><br>
+            password:<input type="password" id="password" placeholder="Enter password" maxlength="12" minlength="6"
+                class="form-control" required /><br>
+            <p id="passwordEm" class="text-white bg-dark"></p><br>
+            confirm password:<input type="password" id="password1" maxlength="12" minlength="6"
+                placeholder="Enter password" class="form-control" required /><br>
+            <p id="passwordEmd" class="text-white bg-dark"></p><br>
+
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option> </option>
+                <option value="male">male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <p id="genderEm" class="text-white bg-dark"></p><br>
+            Age:<input type="number" placeholder="Enter age" id="age" maxlength="2" minlength="1" required /><br>
+            <p id="ageEm" class="text-white bg-dark"></p><br>
+
+            <input type="text" id="village" placeholder="Enter village name" class="form-control" required />
+            <p id="villageEm" class="text-white bg-dark"></p><br>
+
+            <input type="text" id="district" placeholder="Enter district name" class="form-control" required />
+            <p id="districtEm" class="text-white bg-dark"></p><br>
+
+            <input type="text" id="state" placeholder="Enter state name" class="form-control" required>
+            <p id="stateEm" class="text-white bg-dark"></p><br>
+
+            <input type="number" id="pin" placeholder="Enter pincode" minlength="6" maxlength="7" class="form-control"
+                required />
+            <p id="pinEm" class="text-white bg-dark"></p><br>
+
+            <div id="demo2">
+
+            </div>
+            <input type="button" onclick="add()" value="Add" class="btn btn-info">
+
+
+        </div>
+        <input type="submit" value="submit" class="btn btn-info" />
+    </form>
+
+    <script>
+        let arr = [];
+        let subId = 1;
+        let formFun = document.getElementById('Form')
+        formFun.addEventListener('submit', function (e) {
+            e.preventDefault();
+        })
+
+        if (JSON.parse(localStorage.getItem("arr"))) {
+            arr = JSON.parse(localStorage.getItem("arr"))
+        }
+
+        var regEmail = /^[a-zA-Z0-9 ]+\@[a-z]+\.[a-z]{2,3}$/;
+        var regPassword = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.{6,12})/;
+        var pinCodereg = /^[0-9]{6,7}$/;
+
+        function submitFun() {
+
+            let firstName = document.getElementById("firstname").value;
+            if (firstName == "") {
+                document.getElementById("firstNameEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("firstNameEm").innerHTML = "";
+
+            }
+
+
+            let lastName = document.getElementById("lastname").value;
+            if (lastName === "") {
+                document.getElementById("lastNameEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("lastNameEm").innerHTML = "";
+            }
+
+
+            let email = document.getElementById("email").value;
+            if (email.match(regEmail)) {
+                document.getElementById("emailEm").innerHTML = "your email is valid";
+                emailEm.style.color = "green";
+            }
+            else {
+                document.getElementById("emailEm").innerHTML = "please enter valid mail";
+                emailEm.style.color = "red";
+            }
+
+            let password = document.getElementById("password").value;
+            if (password.match(regPassword)) {
+                document.getElementById("passwordEm").innerHTML = " valid password";
+                emailEm.style.color = "green";
+
+            }
+            else {
+                document.getElementById("passwordEm").innerHTML = "Invalid";
+                emailEm.style.color = "red";
+            }
+
+
+            let confirmPassword = document.getElementById("password1").value;
+            if (confirmPassword === "") {
+                document.getElementById("passwordEmd").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("passwordEmd").innerHTML = "";
+            }
+
+
+            password = document.getElementById("password").value;
+            confirmPassword = document.getElementById("password1").value;
+
+            if (password !== confirmPassword) {
+                document.getElementById("passwordEmd").innerHTML = "enter valid password"
+                return false;
+            }
+
+
+            let gender = document.getElementById("gender").value;
+            if (gender === "") {
+                document.getElementById("genderEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("genderEm").innerHTML = "";
+            }
+
+
+            let age = document.getElementById("age").value;
+            if (age == "") {
+                document.getElementById("ageEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("ageEm").innerHTML = "";
+
+            }
+
+            let villAge = document.getElementById("village").value;
+            if (villAge == "") {
+                document.getElementById("villageEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("villageEm").innerHTML = "";
+
+            }
+
+            let districtName = document.getElementById("district").value;
+            if (districtName == "") {
+                document.getElementById("districtEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("districtEm").innerHTML = "";
+
+            }
+
+            let stateName = document.getElementById("state").value;
+            if (stateName == "") {
+                document.getElementById("stateEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("stateEm").innerHTML = "";
+
+            }
+
+            let pinNumber = document.getElementById("pin").value;
+            if (pinNumber == "") {
+                document.getElementById("pinEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("pinEm").innerHTML = "";
+
+            }
+
+            let obj = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword,
+                gender: gender,
+                age: age,
+                address: [
+                    {
+                     
+                        village: villAge,
+                        District: districtName,
+                        state: stateName,
+                        pin: pinNumber
+                    }]
+
+            };
+
+
+            console.log(demo2El.children.length)
+
+            for (let i = 0; i < demo2El.children.length; i++) {
+                vill = demo2El.children[i].children[0].value;
+                dist = demo2El.children[i].children[2].value;
+                state = demo2El.children[i].children[4].value;
+                pinN = demo2El.children[i].children[6].value;
+
+                obj.address.push({ village: vill, District: dist, state: state, pin: pinN })
+
+            }
+
+            let sArr = arr.filter(e => e.email === obj.email)
+
+            if (sArr.length > 0) {
+                alert("email already exist")
+            }
+            else {
+                arr.push(obj)
+                localStorage.setItem("arr", JSON.stringify(arr))
+                arr = JSON.parse(localStorage.getItem("arr"))
+                let id = arr.length - 1
+
+                var urlPage = new URL("file:///home/prashanthdadi/Desktop/login%20authentication/page.html?");
+                var search_params = urlPage.searchParams;
+                search_params.set("id", `${id}`)
+                console.log(search_params)
+
+                var new_url = urlPage.toString();
+                console.log(new_url)
+
+                location.assign(new_url)
+
+            };
+        };
+
+
+
+        let demo2El = document.getElementById("demo2")
+
+        function add() {
+
+            var f = document.createElement("div");
+            f.setAttribute("id", "d1");
+            demo2El.appendChild(f)
+
+
+            var villN = document.createElement("input");
+            villN.setAttribute("type", "text")
+            villN.setAttribute("placeholder", "Enter village name");
+            villN.required = true;
+            f.appendChild(villN)
+
+            var br1 = document.createElement("br");
+            f.appendChild(br1);
+
+            var distN = document.createElement("input");
+            distN.setAttribute("type", "text");
+            distN.setAttribute("placeholder", "Enter district name");
+            distN.required = true;
+            f.appendChild(distN)
+
+            var br2 = document.createElement("br");
+            f.appendChild(br2);
+
+            var stateN = document.createElement("input");
+            stateN.setAttribute("type", "text");
+            stateN.setAttribute("placeholder", "Enter state name");
+            stateN.required = true;
+            f.appendChild(stateN)
+
+            var br3 = document.createElement("br");
+            f.appendChild(br3);
+
+
+            var pinNu = document.createElement("input");
+            pinNu.setAttribute("type", "number");
+            pinNu.setAttribute("minlength", "6");
+            pinNu.setAttribute("maxlength", "7");
+            pinNu.setAttribute("placeholder", "Enter pin number");
+            pinNu.required = true;
+            f.appendChild(pinNu)
+
+            var br4 = document.createElement("br");
+            f.appendChild(br4);
+
+            var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("class", "btn btn-info")
+            button.setAttribute("onclick", "removeFuntion(this)");
+            button.setAttribute("class", "")
+            button.innerHTML = "remove";
+            f.appendChild(button);
+
+
+            var br5 = document.createElement("br");
+            f.appendChild(br5);
+
+        };
+
+
+        function removeFuntion(g) {
+            console.log(g.parentElement)
+            g.parentElement.remove();
+
+        };
+
+
+    </script>
+</body>
+
+</html>
+
+
+<!-- // if (pinNumber.match(pinCodereg)) {
+        //     document.getElementById("pinEm").innerHTML = "valid";
+        //     emailEm.style.color = "green";
+        // }
+        // else {
+        //     document.getElementById("pinEm").innerHTML = "length not match";
+        //     emailEm.style.color = "red";
+        // }
+
+
+        //        const greet=()=>{ vName = document.getElementById("villN").value;
+        //     mName = document.getElementById("distN").value;
+        //     sName = document.getElementById("stateN").value;
+        //     pNum = document.getElementById("pinNu").value;
+        //     console.log(vName)}
+        //     btnClose.addEventListener("click",greet)
+
+        //distN.setAttribute("required");
+        // stateN.setAttribute("required");
+        // pinNu.setAttribute("required");
+
+        // id=document.createElement('id')
+
+        //     arr2.forEach(element => {
+        //     myFun(element)
+        // });
+        //    (()=>{ vName = document.getElementById("villN").value;
+        //     mName = document.getElementById("distN").value;
+        //     sName = document.getElementById("stateN").value;
+        //     pNum = document.getElementById("pinNu").value;
+        //     console.log(vName)})
+
+        // let addObj = {
+        //     vilLName: vName,
+        //     distName: mName,
+        //     stateName: sName,
+        //     pin: pNum
+
+        // }
+
+        // arrAdd.push(addObj);
+        // localStorage.setItem("arrAdd", JSON.stringify(arrAdd))
+        //if (!(villN == "" || distN == "" || stateN == "" || pinNu == "")) {
+        //            (()=>{ vName = document.getElementById("villId").value;
+        // mName = document.getElementById("distId").value;
+        // sName = document.getElementById("pinId").value;
+        // pNum = document.getElementById("pinId").value;
+        // console.log(vName)})();
+
+         -->

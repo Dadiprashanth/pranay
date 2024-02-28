@@ -1,0 +1,73 @@
+<!-- <!DOCTYPE html> -->
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+
+</head>
+
+<body>
+    <!-- Home page
+1. Display all users list in table format
+2. Give the logout button on the home page top corner
+3. When clicking on the logout button, it should be logout
+4. Once the user logout the page, he should not get access to the home page until the
+login success
+5. Once the user logout in the home page, he should not get access to the Login page and
+Regester page until the click logout button -->
+
+    <input type="button" onclick="logOut()" value="logout" class="btn btn-info" class="btn btn-success pull-right"><br>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Firstname</th>
+                <th>lastName</th>
+                <th>Email</th>
+                <th>Password</th>
+                <th>Confirmpassword</th>
+                <th>Age</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody id="myTable">
+
+        </tbody>
+    </table>
+</body>
+<script>
+
+    let parseObj = JSON.parse(localStorage.getItem('arr'));
+
+    buildTable(parseObj)
+
+    function buildTable(data) {
+        var table = document.getElementById("myTable")
+        for (let i = 0; i < data.length; i++) {
+
+            let row = `<tr>
+ 
+   <td>${data[i].firstName}</td>
+   <td>${data[i].lastName}</td>
+   <td>${data[i].email}</td>
+   <td>${data[i].password}</td>
+   <td>${data[i].confirmPassword}</td>
+   <td>${data[i].age}</td>
+   <td>${data[i].gender}</td>
+   <tr>`;
+
+            table.innerHTML += row
+        }
+    }
+    if (!JSON.parse(localStorage.getItem("value"))) {
+        history.back();
+    }
+    function logOut() {
+        localStorage.setItem("value", false);
+        location.assign("/home/prashanthdadi/Desktop/login authentication/login.html");
+
+    }
+</script>
+
+</html>

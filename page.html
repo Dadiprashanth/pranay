@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+  <style>
+    form {
+
+      padding: 10px;
+      margin-left: 0 auto;
+      margin: 0 auto;
+      border: 1px solid rgb(197, 232, 197);
+      width: 500px;
+      background-color: rgb(158, 254, 244);
+
+    }
+  </style>
+</head>
+
+<body>
+  <form>
+    <div>
+      <p id="fName"></p>
+      <p id="lName"></p>
+      <p id="email"></p>
+      <p id="age"></p>
+      <p id="gender"></p>
+      <p id="password"></p>
+      <div id="demo"></div>
+
+    </div>
+  </form>
+</body>
+<script>
+
+  let fName = document.getElementById("fName");
+  let lName = document.getElementById("lName");
+  let email = document.getElementById("email");
+  let age = document.getElementById("age");
+  let gender = document.getElementById("gender");
+  let password = document.getElementById("password");
+
+  let arr = JSON.parse(localStorage.getItem("arr"));
+  let params = new URLSearchParams(document.location.search);
+  let pageId = params.get("id");
+
+  let objArr = arr[pageId]
+  
+  fName.textContent = "FirstName:" + objArr.firstName;
+  lName.textContent = "LastName:" + objArr.lastName;
+  email.textContent = "Email:" + objArr.email;
+  age.textContent = "Age:" + objArr.age;
+  gender.textContent = "Gender:" + objArr.gender;
+  password.textContent = "password:" + objArr.password;
+
+  let divId = document.getElementById("demo")
+  let address = objArr.address;
+
+  for (let i = 0; i < address.length; i++) {
+
+    let val = address[i]
+    console.log(val.village);
+    console.log(val.District);
+    console.log(val.state);
+    console.log(val.pin);
+
+    let pTag = document.createElement("p");
+    pTag.textContent = "Address:" + Number(i + 1);
+    divId.appendChild(pTag);
+
+    let pTag1 = document.createElement("p");
+    pTag1.textContent = "village: " + val.village;
+    divId.appendChild(pTag1);
+
+    let pTag2 = document.createElement("p");
+    pTag2.textContent = "District: " + val.District;
+    divId.appendChild(pTag2);
+
+    let pTag3 = document.createElement("p");
+    pTag3.textContent = "state: " + val.state;
+    divId.appendChild(pTag3);
+
+    let pTag4 = document.createElement("p");
+    pTag4.textContent = "pinNumber: " + val.pin;
+    divId.appendChild(pTag4);
+
+
+  }
+
+
+</script>
+
+</html>
+<!-- //     District: "hnk"
+// age: "22"
+// confirmPassword: "Sai@12"
+// email: "saiA@gmail.com"
+// firstName: "sai"
+// gender: "male"
+// lastName: "panjala"
+// password: "Sai@12"
+// pin: "21"
+// state: "ts"
+// village: "hsp"
+
+ -->

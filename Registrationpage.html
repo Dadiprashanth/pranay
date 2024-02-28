@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <style>
+        form {
+            text-align: center;
+            padding: 10px;
+            margin-left: 0 auto;
+            margin: 0 auto;
+            border: 1px solid rgb(197, 232, 197);
+            width: 500px;
+            background-color: rgb(254, 212, 158);
+        }
+    </style>
+
+</head>
+
+<body>
+    <!-- Registration page
+1. Create a Registration page with fields(first name, last name, email, password, confirm
+password, gender, age)
+2. Add a proper validation for the Registration form.
+3. Validation messages must be shown below the input field only.
+4. Store the data in local storage.
+5. After the form submission page should navigate to the login page-->
+
+    <form id="Form">
+        <h2>Registration Page</h1>
+            <div>
+                first name:<input type="text" id="firstname" placeholder=" Enter firstname" class="form-control" /><br>
+            </div>
+            <p id="firstNameEm" class="text-white bg-dark"></p><br>
+            last name: <input type="text" id="lastname" placeholder="Enter lastname" class="form-control" /><br>
+            <p id="lastNameEm" class="text-white bg-dark"></p><br>
+            email:<input type="email" id="email" placeholder=" Enter email" class="form-control" /><br>
+            <p id="emailEm"></p><br>
+            password:<input type="password" id="password" placeholder="Enter password" maxlength="12" minlength="6"
+                class="form-control" required /><br>
+            <p id="passwordEm" class="text-white bg-dark"></p><br>
+            confirm password:<input type="password" id="password1" maxlength="12" minlength="6"
+                placeholder="Enter password" class="form-control" required /><br>
+            <p id="passwordEmd" class="text-white bg-dark"></p><br>
+
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option></option>
+                <option value="male">male</option>
+                <option value="Female">Female</option>
+            </select>
+
+            <p id="genderEm" class="text-white bg-dark"></p><br>
+            Age:<input type="number" placeholder="Enter age" id="age" maxlength="2" minlength="1"><br>
+            <p id="ageEm" class="text-white bg-dark"></p><br>
+
+            <div>
+                <input type="text" id="village" placeholder="Enter village name" class="form-control">
+                <p id="villageEm" class="text-white bg-dark"></p><br>
+
+                <input type="text" id="district" placeholder="Enter district name" class="form-control">
+                <p id="districtEm" class="text-white bg-dark"></p><br>
+
+                <input type="text" id="state" placeholder="Enter state name" class="form-control">
+                <p id="stateEm" class="text-white bg-dark"></p><br>
+
+                <input type="number" id="pin" placeholder="Enter pincode" minlength="6" maxlength="7"
+                    class="form-control">
+                <p id="pinEm" class="text-white bg-dark"></p><br>
+
+                <input type="button" onclick="submitFun()" value="submit" class="btn btn-info" />
+                <input type="button" onclick="add()" value="Add" class="btn btn-info">
+            </div>
+    </form>
+
+    <script>
+        let arr = [];
+
+        if (JSON.parse(localStorage.getItem("arr"))) {
+            arr = JSON.parse(localStorage.getItem("arr"))
+        }
+
+        var regEmail = /^[a-zA-Z0-9 ]+\@[a-z]+\.[a-z]{2,3}$/;
+        var regPassword = /^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])(?=.{6,12})/;
+        var pinCodereg = /^[0-9]{6,7}$/;
+
+        function submitFun() {
+
+            let firstName = document.getElementById("firstname").value;
+            if (firstName == "") {
+                document.getElementById("firstNameEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("firstNameEm").innerHTML = "";
+
+            }
+
+
+            let lastName = document.getElementById("lastname").value;
+            if (lastName === "") {
+                document.getElementById("lastNameEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("lastNameEm").innerHTML = "";
+            }
+
+
+            let email = document.getElementById("email").value;
+            if (email.match(regEmail)) {
+                document.getElementById("emailEm").innerHTML = "your email is valid";
+                emailEm.style.color = "green";
+            }
+            else {
+                document.getElementById("emailEm").innerHTML = "please enter valid mail";
+                emailEm.style.color = "red";
+            }
+
+            let password = document.getElementById("password").value;
+            if (password.match(regPassword)) {
+                document.getElementById("passwordEm").innerHTML = " valid password";
+                emailEm.style.color = "green";
+                console.log("ar")
+            }
+            else {
+                document.getElementById("passwordEm").innerHTML = "Invalid";
+                emailEm.style.color = "red";
+            }
+
+
+            let confirmPassword = document.getElementById("password1").value;
+            if (confirmPassword === "") {
+                document.getElementById("passwordEmd").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("passwordEmd").innerHTML = "";
+            }
+
+
+            password = document.getElementById("password").value;
+            confirmPassword = document.getElementById("password1").value;
+
+            if (password !== confirmPassword) {
+                document.getElementById("passwordEmd").innerHTML = "enter valid password"
+                return false;
+            }
+
+
+            let gender = document.getElementById("gender").value;
+            if (gender === "") {
+                document.getElementById("genderEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("genderEm").innerHTML = "";
+            }
+
+
+            let age = document.getElementById("age").value;
+            if (age == "") {
+                document.getElementById("ageEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("ageEm").innerHTML = "";
+
+            }
+
+            let villAge = document.getElementById("village").value;
+            if (villAge == "") {
+                document.getElementById("villageEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("villageEm").innerHTML = "";
+
+            }
+
+            let districtName = document.getElementById("district").value;
+            if (districtName == "") {
+                document.getElementById("districtEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("districtEm").innerHTML = "";
+
+            }
+
+            let stateName = document.getElementById("state").value;
+            if (stateName == "") {
+                document.getElementById("stateEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("stateEm").innerHTML = "";
+
+            }
+
+            let pinNumber = document.getElementById("pin").value;
+            if (pinNumber.match(pinCodereg)) {
+                document.getElementById("pinEm").innerHTML = "valid";
+                emailEm.style.color = "green";
+            }
+            else {
+                document.getElementById("pinEm").innerHTML = "length not match";
+                emailEm.style.color = "red";
+            }
+
+
+
+
+            let obj = {
+                firstName: firstName,
+                lastName: lastName,
+                email: email,
+                password: password,
+                confirmPassword: confirmPassword,
+                gender: gender,
+                age: age
+            };
+
+            let sArr = arr.filter(e => e.email === obj.email)
+
+            if (sArr.length > 0) {
+                alert("email already exist")
+            }
+            else {
+                arr.push(obj)
+
+                localStorage.setItem("arr", JSON.stringify(arr));
+                console.log(arr);
+
+                location.assign("/home/prashanthdadi/Desktop/login%20authentication/login.html");
+            }
+
+        }
+
+        if (JSON.parse(localStorage.getItem("value"))) {
+            location.assign("/home/prashanthdadi/Desktop/login authentication/home.html")
+        }
+
+        var f;
+        let arrAdd = []
+        let id = 1;
+        function add() {
+
+            let f1 = document.createElement("form")
+            f1.setAttribute("id", "fr")
+
+            var f = document.createElement("div");
+            f.setAttribute("id", "demo1");
+
+
+            var villN = document.createElement("input");
+            villN.setAttribute("type", "text");
+            villN.setAttribute("id", "villId");
+            villN.setAttribute("placeholder", "Enter village name");
+            f.appendChild(villN)
+            var br1 = document.createElement("br");
+            f.appendChild(br1);
+
+            var distN = document.createElement("input");
+            distN.setAttribute("type", "text");
+            distN.setAttribute("id", "distId");
+            distN.setAttribute("placeholder", "Enter district name");
+            f.appendChild(distN)
+            var br2 = document.createElement("br");
+            f.appendChild(br2);
+
+            var stateN = document.createElement("input");
+            stateN.setAttribute("type", "text");
+            stateN.setAttribute("id", "stateId");
+            stateN.setAttribute("placeholder", "Enter state name");
+            f.appendChild(stateN)
+            var br3 = document.createElement("br");
+            f.appendChild(br3);
+
+
+            var pinNu = document.createElement("input");
+            pinNu.setAttribute("type", "number");
+            pinNu.setAttribute("id", "pinId");
+            pinNu.setAttribute("placeholder", "Enter pin number");
+            f.appendChild(pinNu)
+            var br4 = document.createElement("br");
+            f.appendChild(br4);
+
+            // id=document.createElement('id')
+
+            var button = document.createElement("button");
+            button.setAttribute("type", "button");
+            button.setAttribute("onclick", "removeFuntion(this)");
+            button.innerHTML = "remove";
+            f.appendChild(button);
+
+            f1.appendChild(f)
+            document.body.appendChild(f1);
+
+            var br5 = document.createElement("br");
+            f.appendChild(br5);
+            f.appendChild
+
+        }
+
+        var cln = document.getElementsByClassName("user")[0].cloneNode(true);
+        console.log(cln)
+        document.getElementById("fr").insertBefore(cln, this);
+        function removeFuntion(g) {
+            g.parentElement.parentElement.remove();
+
+        }
+
+    </script>
+</body>
+
+</html>

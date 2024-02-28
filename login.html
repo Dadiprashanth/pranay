@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.1.3/dist/css/bootstrap.min.css"
+            integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
+            <style>
+                form{
+                    text-align: center;
+                    padding: 10px;
+                    margin-left: 0 auto;
+                    margin:  0 auto;
+                    border: 1px solid rgb(197, 232, 197);
+                    width: 500px;
+                    background-color: rgb(173, 212, 212);
+                }
+            </style>
+            
+    </head>
+    
+<!-- Login page
+   1. Create a login page with fields(email, password)
+   2. Add a proper validation for the Login form.
+   3. Validation messages must be shown below the input field only.
+   4. Check the user in the local storage
+   5. After login successfully navigate to the home page
+   6. If the login failed display some error message to the user-->
+ 
+<body>
+   <form>
+      <h1 >Login Page</h1><br>
+       Email: <input type="email" id="email" placeholder="enter email"class="form-control"/><br>
+       <p id="emailEm" class="text-info"></p><br>
+       Password:<input type="Password" id="Password" placeholder="enter password"class="form-control" /><br>
+       <p id="passwordEm" class="text-info"></p><br>
+       <input type="button" onclick="loginPage()" value="login" class="btn btn-info"><br>
+   </form>
+   <script>
+       let parObj = JSON.parse(localStorage.getItem("arr"));
+       console.log(parObj)
+
+       if(JSON.parse(localStorage.getItem("value"))){
+            location.assign("/home/prashanthdadi/Desktop/login authentication/home.html")
+        }
+
+       function loginPage() {
+ 
+        localStorage.setItem("value",true)
+           let email = document.getElementById("email").value;
+           let password = document.getElementById("Password").value;
+           let count=0
+
+           
+           if (email === "") {
+                document.getElementById("emailEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("emailEm").innerHTML = "";
+            }
+            if (password === "") {
+                document.getElementById("passwordEm").innerHTML = "Required";
+                return false;
+            }
+            else {
+                document.getElementById("passwordEm").innerHTML = "";
+            }
+
+           for (each of parObj) {
+                 
+               if (each.email === email && each.password === password) {
+                
+                   location.assign("/home/prashanthdadi/Desktop/login authentication/home.html");
+                count++
+                }
+            }
+                if(count==0){
+                    alert("login failed invalid email(or)password");
+                }
+
+        }
+    
+    </script>
+</body>
+</html>
+ 
