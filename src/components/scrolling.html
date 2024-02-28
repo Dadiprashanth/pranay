@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        #myDiv {
+            width: 100%;
+            padding: 20px;
+            background-color: lightblue;
+            margin-top: 10px;
+            height: 5px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <input type="button" onclick="myfun()" value="open">
+    <div id="myDiv">javascript </div>
+
+    <script>
+        let h = 10;
+        let y;
+        let count = 0;
+        let z;
+        var x = document.getElementById("myDiv");
+        x.style.display="none"
+
+        function myfun() {
+            x.style.display="block"
+            
+            if (count == 0) {
+
+                y = setInterval(() => {
+                    x.style.height = h + "px";
+
+                    h += 1
+                    if (h == 120) {
+                        clearInterval(y);
+                    }
+                }, 10);
+
+                count += 1
+            }
+            else {
+                z = setInterval(() => {
+                    x.style.height = h + "px";
+
+                    h -= 1;
+                    if (h == 0) {
+                        clearInterval(z);
+                        x.style.display="none"
+                    }
+                }, 10);
+                
+                count = 0
+            }
+
+
+        }
+
+
+    </script>
+</body>
+
+</html>
