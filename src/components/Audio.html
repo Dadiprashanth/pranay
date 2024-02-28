@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class='main-div'>
+        <div class='music-container'>
+            <h2>DP lotus Lane</h2>
+            <h3>the loyalist</h3>
+            <div class='img-container'>
+                <img src="./Images/unnamed.png" alt="UFC logo" ></img>
+            </div>
+
+            <audio src="file:///home/prashanthdadi/Downloads/nagoya-30-sec-110909.mp3" ></audio>
+
+
+             <div class='music-controls'>
+               <i class='fas fa-backward' id="prev" title='Previous'></i>
+               <i class='fas fa-play' id="play" title='Play'></i>
+               <i class='fas fa-forward' id="next" title='next'></i>
+
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <script>
+        const play=document.getElementById("play")
+        console.log(play)
+    const music=document.querySelector('audio')
+    
+    
+    let isplaying=false;
+    
+      const playMusic=()=>{
+          isplaying=true;
+      music.play();
+      play.classList.replace("fa-play", "fa-pause")   } 
+
+    const pauseMusic=()=>{
+        isplaying=false;
+      music.pause();
+      play.classList.replace("fa-pause","fa-play")   } 
+
+      play.addEventListener("click",()=>{
+          isplaying? pauseMusic(): playMusic();
+      })
+    
+    </script>
+</body>
+
+</html>

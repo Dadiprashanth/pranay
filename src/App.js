@@ -1,23 +1,17 @@
 import logo from './logo.svg';
 import './App.css';
+import Sports from './components/Sports';
+import Panini from './components/Panini';
+import Path from './components/Path';
+import Audio from './components/Audio';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Panini />
+      <Sports />
+      <Path />
+      {/* <Audio /> */}
     </div>
   );
 }
