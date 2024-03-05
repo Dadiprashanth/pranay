@@ -20,78 +20,95 @@
         </tbody>
     </table>
 
-</body>
-<script>
-    let arr_1 = []
-    if (JSON.parse(localStorage.getItem("arr_1"))) {
-        arr_1 = JSON.parse(localStorage.getItem("arr_1"))
-    }
-    console.log(arr_1, "arr")
+    <script>
+        let arr_1 = JSON.parse(localStorage.getItem("arr_1")) || [];
+        let editId = null; // Variable to store the ID being edited
 
-    function submit() {
-        let f_name = document.getElementById("f_name").value;
-        let p_word = document.getElementById("p_word").value;
-        let f_nameR = document.getElementById("f_nameR")
-        let p_wordR = document.getElementById("p_wordR")
+        function submit() {
+            let f_name = document.getElementById("f_name").value;
+            let p_word = document.getElementById("p_word").value;
+            let f_nameR = document.getElementById("f_nameR");
+            let p_wordR = document.getElementById("p_wordR");
 
-        if (f_name == "") {
-            f_nameR.textContent = "Required"
-            f_nameR.style.color = "red"
-            return true;
-        }
-        else {
-            f_nameR.textContent = ""
-        }
-        if (p_word == "") {
-            p_wordR.textContent = "Required"
-            p_wordR.style.color = "red"
-            return false;
-        }
-        else {
-            p_wordR.textContent = ""
-        }
-        let obj_1 = {
-            id: new Date().getTime().toString(),
-            firstName: f_name,
-            password: p_word
-        }
-        console.log(new Date().getTime().toString());
-        arr_1.push(obj_1);
-        localStorage.setItem('arr_1', JSON.stringify(arr_1));
-        location.reload()
-    }
+            if (f_name === "") {
+                f_nameR.textContent = "Required";
+                f_nameR.style.color = "red";
+                return;
+            } else {
+                f_nameR.textContent = "";
+            }
 
-    arr_1.map((each) => {
-        let tr1 = document.createElement("tr")
-        document.getElementById("mytable").appendChild(tr1)
-        let td1 = document.createElement("td")
-        td1.textContent = each.firstName;
-        tr1.appendChild(td1);
-        let td2 = document.createElement("td")
-        td2.textContent = each.password;
-        tr1.appendChild(td2);
-        let td3 = document.createElement("td")
-        let btn = document.createElement("button")
-        btn.setAttribute("id", `${each.id}`)
-        btn.setAttribute("onclick", "edit(id)")
-        btn.textContent = "edit"
-        td3.appendChild(btn)
-        let btn1 = document.createElement("button")
-        btn1.textContent = "Del"
-        td3.appendChild(btn1)
-        tr1.appendChild(td3)
+            if (p_word === "") {
+                p_wordR.textContent = "Required";
+                p_wordR.style.color = "red";
+                return;
+            } else {
+                p_wordR.textContent = "";
+            }
 
-    })
-    function edit(e) {
-        console.log(e)
-        for (let i of arr_1) {
-            if (i.id === e) {
-                document.getElementById("f_name").value = i.firstName
-                document.getElementById("p_word").value = i.password
+            let existingObjIndex = arr_1.findIndex((obj) => obj.id === editId);
+
+            if (existingObjIndex !== -1) {                // Update existing object
+                arr_1[existingObjIndex].firstName = f_name;
+                arr_1[existingObjIndex].password = p_word;
+            } else {
+                // Add new object
+                let obj_1 = {
+                    id: new Date().getTime().toString(),
+                    firstName: f_name,
+                    password: p_word,
+                };
+                arr_1.push(obj_1);
+            }
+
+            localStorage.setItem("arr_1", JSON.stringify(arr_1));
+            location.reload();
+        }
+
+
+        function edit(e) {
+            for (let i of arr_1) {
+                if (i.id === e) {
+                    document.getElementById("f_name").value = i.firstName;
+                    document.getElementById("p_word").value = i.password;
+                    editId = e; // Set the ID being edited
+                    break; // Break the loop after finding the matching ID
+                }
             }
         }
 
-    }
+        function delete1(e) {
+            let arr1 = arr_1.filter((each) => each.id !== e);
+            localStorage.setItem("arr_1", JSON.stringify(arr1));
+            location.reload();
+        }
+
+        arr_1.forEach((each) => {
+            let tr1 = document.createElement("tr");
+            document.getElementById("mytable").appendChild(tr1);
+            let td1 = document.createElement("td");
+            td1.textContent = each.firstName;
+            tr1.appendChild(td1);
+            let td2 = document.createElement("td");
+            td2.textContent = each.password;
+            tr1.appendChild(td2);
+            let td3 = document.createElement("td");
+            let btn = document.createElement("button");
+            btn.setAttribute("id", `${each.id}`);
+            btn.setAttribute("onclick", "edit(id)");
+            btn.textContent = "edit";
+            td3.appendChild(btn);
+            let btn1 = document.createElement("button");
+            btn1.setAttribute("id", `${each.id}`);
+            btn1.setAttribute("onclick", "delete1(id)");
+            btn1.textContent = "Del";
+            td3.appendChild(btn1);
+            tr1.appendChild(td3);
+        });
+    </script>
+</body>
+
+</html>
 
 
 
